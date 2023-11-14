@@ -14,6 +14,15 @@ const BtnCalcWrapper = styled.button`
   backdrop-filter: blur(9.5px);
   -webkit-backdrop-filter: blur(9.5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+
+  &:hover {
+    box-shadow: 0px 0px 20px var(--color-success);
+  }
+
+  &:active {
+    color: var(--color-success);
+  }
 `;
 
 export default ButtonCalc;

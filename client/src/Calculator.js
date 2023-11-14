@@ -1,26 +1,73 @@
 import styled from "styled-components";
 import bg from "./assets/bgImg.jpg";
 import ButtonCalc from "./ButtonCalc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Calculator = () => {
   const [text, setText] = useState("0");
   const [previousValue, setPreviousValue] = useState(0);
+  const [operator, setOperator] = useState("+");
 
   const numbersArray = Array.from(Array(10).keys());
 
+  /*quand on appuie sur un  numero*/
   const handleNumClick = (value) => {
-    setText(text == "0" ? value.toString() : text.concat(value));
+    if (operator == "=") {
+      setOperator("");
+    }
+    setText(
+      text == "0" || operator == "=" ? value.toString() : text.concat(value)
+    );
   };
 
   const handleACClick = () => {
     setText("0");
+    setPreviousValue(0);
+    setOperator("+");
   };
 
   const handleSumClick = () => {
-    setPreviousValue(parseInt(text));
-    setText("0");
+    calculateNums("+");
   };
+
+  /*activeOperator represent l'operator appuyer*/
+  const calculateNums = (activeOperator) => {
+    let value = parseInt(text);
+    /*operator est un state qui retien le dernier operator grace a setOperator*/
+    switch (operator) {
+      case "+":
+        value = value + previousValue;
+        break;
+      case "-":
+        value = previousValue - value;
+        break;
+      case "X":
+        value = value * previousValue;
+        break;
+
+      case "+/-":
+        value = value * -1;
+        break;
+      case "/":
+        if (text !== "0") {
+          value = previousValue / value;
+        }
+        break;
+    }
+    setText("0");
+    /*en .toString Car si non la concatenatio est impossible car il voit un nbr  */
+
+    if (activeOperator == "=") {
+      setText(value.toString());
+      value = 0;
+    }
+    setPreviousValue(value);
+    setOperator(activeOperator);
+  };
+
+  useEffect(() => {
+    console.log(previousValue);
+  }, [previousValue]);
 
   return (
     <CalculatorWrapper>
@@ -34,7 +81,13 @@ const Calculator = () => {
           <ButtonCalc value={"-"} handleClick={handleACClick} />
           <ButtonCalc value={"X"} handleClick={handleACClick} />
           <ButtonCalc value={"/"} handleClick={handleACClick} />
-          <ButtonCalc value={"="} handleClick={handleACClick} />
+          <ButtonCalc value={"+/-"} handleClick={handleACClick} />
+          <ButtonCalc
+            value={"="}
+            handleClick={() => {
+              calculateNums("=");
+            }}
+          />
 
           {numbersArray.map((number) => {
             return (

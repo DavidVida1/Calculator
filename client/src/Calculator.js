@@ -5,6 +5,22 @@ import { useState } from "react";
 
 const Calculator = () => {
   const [text, setText] = useState("0");
+  const [previousValue, setPreviousValue] = useState(0);
+
+  const numbersArray = Array.from(Array(10).keys());
+
+  const handleNumClick = (value) => {
+    setText(text == "0" ? value.toString() : text.concat(value));
+  };
+
+  const handleACClick = () => {
+    setText("0");
+  };
+
+  const handleSumClick = () => {
+    setPreviousValue(parseInt(text));
+    setText("0");
+  };
 
   return (
     <CalculatorWrapper>
@@ -13,7 +29,23 @@ const Calculator = () => {
           <p>{text}</p>
         </div>
         <div className="btnWrapper">
-          <ButtonCalc value={"AC"} />
+          <ButtonCalc value={"AC"} handleClick={handleACClick} />
+          <ButtonCalc value={"+"} handleClick={handleSumClick} />
+          <ButtonCalc value={"-"} handleClick={handleACClick} />
+          <ButtonCalc value={"X"} handleClick={handleACClick} />
+          <ButtonCalc value={"/"} handleClick={handleACClick} />
+          <ButtonCalc value={"="} handleClick={handleACClick} />
+
+          {numbersArray.map((number) => {
+            return (
+              <ButtonCalc
+                value={number}
+                handleClick={() => {
+                  handleNumClick(number);
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </CalculatorWrapper>
@@ -76,8 +108,6 @@ const CalculatorWrapper = styled.section`
 
       width: 100%;
       height: 100%;
-
-      box-shadow: 0px 0px 10px red;
     }
   }
 `;

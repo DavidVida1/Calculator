@@ -10,7 +10,7 @@ const Calculator = () => {
 
   const numbersArray = Array.from(Array(10).keys());
 
-  /*quand on appuie sur un  numero*/
+  /*----------When you Click on a Num--------*/
   const handleNumClick = (value) => {
     if (operator == "=") {
       setOperator("");
@@ -20,12 +20,13 @@ const Calculator = () => {
     );
   };
 
+  /*----------When you Click on AC--------*/
   const handleACClick = () => {
     setText("0");
     setPreviousValue(0);
     setOperator("+");
   };
-
+  /*----------When you Click on + --------*/
   const handleSumClick = () => {
     calculateNums("+");
   };
@@ -33,7 +34,7 @@ const Calculator = () => {
   /*activeOperator represent l'operator appuyer*/
   const calculateNums = (activeOperator) => {
     let value = parseInt(text);
-    /*operator est un state qui retien le dernier operator grace a setOperator*/
+    /*compares the activeOperator to the Operator state*/
     switch (operator) {
       case "+":
         value = value + previousValue;
@@ -55,7 +56,7 @@ const Calculator = () => {
         break;
     }
     setText("0");
-    /*en .toString Car si non la concatenatio est impossible car il voit un nbr  */
+    /*important that the number is a string or the concatonation will not work*/
 
     if (activeOperator == "=") {
       setText(value.toString());

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const ButtonCalc = ({ value, handleClick }) => {
-  return <BtnCalcWrapper onClick={handleClick}>{value}</BtnCalcWrapper>;
+const ButtonCalc = ({ value, handleClick, className }) => {
+  return (
+    <BtnCalcWrapper onClick={handleClick} className={className}>
+      {value}
+    </BtnCalcWrapper>
+  );
 };
 
 const BtnCalcWrapper = styled.button`

@@ -77,27 +77,52 @@ const Calculator = () => {
           <p>{text}</p>
         </div>
         <div className="btnWrapper">
-          <ButtonCalc value={"AC"} handleClick={handleACClick} />
-          <ButtonCalc value={"+"} handleClick={handleSumClick} />
-          <ButtonCalc value={"-"} handleClick={handleACClick} />
-          <ButtonCalc value={"X"} handleClick={handleACClick} />
-          <ButtonCalc value={"/"} handleClick={handleACClick} />
+          <ButtonCalc
+            value={"AC"}
+            handleClick={handleACClick}
+            className="btnAc"
+          />{" "}
           <ButtonCalc value={"+/-"} handleClick={handleACClick} />
+          <ButtonCalc value={"+"} handleClick={handleSumClick} />
+          <ButtonCalc
+            value={"-"}
+            handleClick={handleACClick}
+            className="btnMinus"
+          />
+          <ButtonCalc
+            value={"X"}
+            handleClick={handleACClick}
+            className="btnX"
+          />
+          <ButtonCalc
+            value={"/"}
+            handleClick={handleACClick}
+            className="btnDivision"
+          />
           <ButtonCalc
             value={"="}
             handleClick={() => {
               calculateNums("=");
             }}
+            className="btnEqual"
           />
-
+          <ButtonCalc
+            value={"0"}
+            handleClick={() => {
+              handleNumClick(0);
+            }}
+            className="btnZero"
+          />
           {numbersArray.map((number) => {
             return (
-              <ButtonCalc
-                value={number}
-                handleClick={() => {
-                  handleNumClick(number);
-                }}
-              />
+              number > 0 && (
+                <ButtonCalc
+                  value={number}
+                  handleClick={() => {
+                    handleNumClick(number);
+                  }}
+                />
+              )
             );
           })}
         </div>
@@ -118,7 +143,7 @@ const CalculatorWrapper = styled.section`
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 
-  .calculatorContainer {
+  & .calculatorContainer {
     position: absolute;
     display: grid;
     grid-template-rows: 122px auto;
@@ -137,7 +162,7 @@ const CalculatorWrapper = styled.section`
     backdrop-filter: blur(9.5px);
     -webkit-backdrop-filter: blur(9.5px);
 
-    .text {
+    & .text {
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
@@ -151,17 +176,39 @@ const CalculatorWrapper = styled.section`
       -webkit-backdrop-filter: blur(9.5px);
     }
 
-    .btnWrapper {
+    & .btnWrapper {
       display: grid;
       grid: repeat(5, 50px) / repeat(4, 75px);
-      /*grid-template-columns: repeat(4, 75px);
-      grid-template-rows: repeat(5, 50px);*/
       grid-auto-flow: row;
       align-content: space-between;
       justify-content: space-between;
 
       width: 100%;
       height: 100%;
+
+      & .btnAc {
+        grid-area: 1/1 / 1/3;
+      }
+
+      & .btnMinus {
+        grid-area: 2/4 / span 1 / span 1;
+      }
+
+      & .btnX {
+        grid-area: 3/4 / span 1 / span 1;
+      }
+
+      & .btnDivision {
+        grid-area: 4/4 / span 1 / span 1;
+      }
+
+      & .btnEqual {
+        grid-area: 5/3 / span 1 / span 2;
+      }
+
+      & .btnZero {
+        grid-area: 5/2 / span 1 / span 1;
+      }
     }
   }
 `;

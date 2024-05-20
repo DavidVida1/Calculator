@@ -1,6 +1,6 @@
 # 💻 Calculator
 
-## 📝 Rough Resume
+## 📝 Rough Summary
 
 The Calculator app was developed with the primary goal of gaining a better understanding of basic JavaScript principles. It serves as a practical exercise in applying fundamental concepts while building a useful tool for performing mathematical operations. Through this project, I aimed to strengthen my skills in JavaScript programming and deepen my understanding of React JS for building dynamic user interfaces.
 
